@@ -15,6 +15,27 @@ namespace gestor_de_gastos
             Console.Clear();
             using (var context = new GastosDataContext())
             {
+                Console.WriteLine("O que deseja fazer?");
+                Console.WriteLine("---------------------------");
+                Console.WriteLine("1 - Inserir Perfil(se não tiver)\n2 - Inserir Gasto(se ja tiver o perfil)");
+                Console.WriteLine("");
+                var opcao = int.Parse(Console.ReadLine());
+                Console.Clear();
+
+                switch (opcao)
+                {
+                    case 1: InserirPerfil(); break;
+                    case 2: InserirGasto(); break;
+                    default: Console.WriteLine("Opção 1 ou 2 APENAS!"); break;
+                }
+            }
+
+        }
+
+        public static void InserirPerfil()
+        {
+            using (var context = new GastosDataContext())
+            {
                 Console.WriteLine("Qual o seu nome completo?");
                 var nomeCompleto = Console.ReadLine().ToLower();
                 Console.WriteLine("Digite o nome do Gasto que queira adicionar: ");
@@ -23,37 +44,63 @@ namespace gestor_de_gastos
                 var precoGasto = decimal.Parse(Console.ReadLine());
                 var pessoaExistente = context.Pessoas.FirstOrDefault(p => p.Nome == nomeCompleto);
 
-                if (nomeCompleto == pessoaExistente.Nome)
+                var pessoa = new Pessoa
                 {
-                    var gasto = new Gasto
-                    {
-                        Pessoa = pessoaExistente,
-                        Nome = nomeGasto,
-                        Preco = precoGasto
-                    };
+                    Nome = nomeCompleto
+                };
 
+                var gasto = new Gasto
+                {
+                    Pessoa = pessoa,
+                    Nome = nomeGasto,
+                    Preco = precoGasto
+                };
 
-                    context.Gastos.Add(gasto);
-                    context.SaveChanges();
+                context.Pessoas.Add(pessoa);
+                context.Gastos.Add(gasto);
+                context.SaveChanges();
+
+                Console.WriteLine("----------------------------------");
+                Console.WriteLine("Perfil & Gasto adicionado com sucesso!");
+                Console.WriteLine("Deseja voltar para o Menu? s ou n");
+                var respostaMenu = Console.ReadLine();
+                if (respostaMenu.ToLower() == "s")
+                {
+                    Menu.MostrarMenu();
+                }
+                else if (respostaMenu.ToLower() == "n")
+                {
+                    Console.WriteLine("Obrigado por utilizar o Gestor de Gastos Mariofneto");
                 }
                 else
                 {
-                    var pessoa = new Pessoa
-                    {
-                        Nome = nomeCompleto
-                    };
-
-                    var gasto = new Gasto
-                    {
-                        Pessoa = pessoa,
-                        Nome = nomeGasto,
-                        Preco = precoGasto
-                    };
-
-                    context.Pessoas.Add(pessoa);
-                    context.Gastos.Add(gasto);
-                    context.SaveChanges();
+                    Console.WriteLine("Digite uma opção válida\ns ou n");
                 }
+            }
+        }
+
+        public static void InserirGasto()
+        {
+            using (var context = new GastosDataContext())
+            {
+                Console.WriteLine("Qual o seu nome completo?");
+                var nomeCompleto = Console.ReadLine().ToLower();
+                Console.WriteLine("Digite o nome do Gasto que queira adicionar: ");
+                var nomeGasto = Console.ReadLine().ToLower();
+                Console.WriteLine("Digite o preço do Gasto que queira adicionar R$: ");
+                var precoGasto = decimal.Parse(Console.ReadLine());
+                var pessoaExistente = context.Pessoas.FirstOrDefault(p => p.Nome == nomeCompleto);
+
+                var gasto = new Gasto
+                {
+                    Pessoa = pessoaExistente,
+                    Nome = nomeGasto,
+                    Preco = precoGasto
+                };
+
+
+                context.Gastos.Add(gasto);
+                context.SaveChanges();
 
                 Console.WriteLine("----------------------------------");
                 Console.WriteLine("Gasto adicionado com sucesso!");
@@ -72,7 +119,6 @@ namespace gestor_de_gastos
                     Console.WriteLine("Digite uma opção válida\ns ou n");
                 }
             }
-
         }
     }
 }

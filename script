@@ -1,0 +1,60 @@
+﻿IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+GO
+
+BEGIN TRANSACTION;
+GO
+
+CREATE TABLE [Pessoas] (
+    [Id] int NOT NULL IDENTITY,
+    [Nome] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Pessoas] PRIMARY KEY ([Id])
+);
+GO
+
+CREATE TABLE [Gastos] (
+    [Id] int NOT NULL IDENTITY,
+    [PessoaId] int NOT NULL,
+    [Nome] nvarchar(max) NOT NULL,
+    [Preco] decimal(18,2) NOT NULL,
+    CONSTRAINT [PK_Gastos] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Gastos_Pessoas_PessoaId] FOREIGN KEY ([PessoaId]) REFERENCES [Pessoas] ([Id]) ON DELETE CASCADE
+);
+GO
+
+CREATE INDEX [IX_Gastos_PessoaId] ON [Gastos] ([PessoaId]);
+GO
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221210110116_MyFirstMigration', N'7.0.0');
+GO
+
+COMMIT;
+GO
+
+BEGIN TRANSACTION;
+GO
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221210133432_MySecondMigration', N'7.0.0');
+GO
+
+COMMIT;
+GO
+
+BEGIN TRANSACTION;
+GO
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221212182331_projetoPronto', N'7.0.0');
+GO
+
+COMMIT;
+GO
+
