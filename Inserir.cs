@@ -26,7 +26,7 @@ namespace gestor_de_gastos
                 {
                     case 1: InserirPerfil(); break;
                     case 2: InserirGasto(); break;
-                    default: Console.WriteLine("Opção 1 ou 2 APENAS!"); break;
+                    default: Console.WriteLine("Opção 1 ou 2 APENAS!"); Console.ReadLine(); break;
                 }
             }
 
@@ -71,10 +71,12 @@ namespace gestor_de_gastos
                 else if (respostaMenu.ToLower() == "n")
                 {
                     Console.WriteLine("Obrigado por utilizar o Gestor de Gastos Mariofneto");
+                    Console.ReadLine();
                 }
                 else
                 {
                     Console.WriteLine("Digite uma opção válida\ns ou n");
+                    Console.ReadLine();
                 }
             }
         }
@@ -113,10 +115,13 @@ namespace gestor_de_gastos
                 else if (respostaMenu.ToLower() == "n")
                 {
                     Console.WriteLine("Obrigado por utilizar o Gestor de Gastos Mariofneto");
-                }
+                    Console.ReadLine();
+                }   
+
                 else
                 {
                     Console.WriteLine("Digite uma opção válida\ns ou n");
+                    Console.ReadLine();
                 }
             }
         }

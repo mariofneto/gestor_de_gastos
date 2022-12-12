@@ -25,7 +25,7 @@ namespace gestor_de_gastos
                 case EEscolha.Inserir: Inserir.InserirGastos(); break;
                 case EEscolha.Editar: Editar.EditarGastos(); break;
                 case EEscolha.Remover: Remover.RemoverGastosOuPerfil(); break;
-                default: Console.WriteLine("Opção inválida!\nDigite um número de 1 a 4"); break;
+                default: Console.WriteLine("Opção inválida!\nDigite um número de 1 a 4"); Console.ReadLine(); break;
             }
 
         }

@@ -76,6 +76,7 @@ namespace gestor_de_gastos
                 {
                     Console.WriteLine("[ERRO]");
                     Console.WriteLine("Você passou dados errados, confirme e tente novamente.");
+                    Console.ReadLine();
                 }
 
             }

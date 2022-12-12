@@ -24,13 +24,14 @@ namespace gestor_de_gastos
                 {
                     case 1: RemoverPerfil(); break;
                     case 2: RemoverGasto(); break;
-                    default: Console.WriteLine("Opção 1 ou 2 APENAS!"); break;
+                    default: Console.WriteLine("Opção 1 ou 2 APENAS!"); Console.ReadLine(); break;
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine("[ERRO]");
                 Console.WriteLine("Você passou dados errados, confirme e tente novamente.");
+                Console.ReadLine();
             }
         }
 
@@ -108,6 +109,7 @@ namespace gestor_de_gastos
                         else
                         {
                             Console.WriteLine("Digite uma opção válida\ns ou n");
+                            Console.ReadLine();
                         }
                     }
                 }
